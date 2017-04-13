@@ -2,3 +2,6 @@ sqlselect/.vs/
 sqlselect/sqlselect.VC.db
 sqlselect/Debug/
 sqlselect/sqlselect/Debug/
+sqlselect/libtoken/Debug/
+sqlselect/test_libtoken/Debug/
+sqlselect/libtoken/libtoken.vcxproj.user

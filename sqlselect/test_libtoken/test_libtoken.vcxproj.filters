@@ -13,18 +13,10 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Test Data">
-      <UniqueIdentifier>{879c1246-65a4-4eda-bcf6-d15691c6feea}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="sqlselect.cpp">
+    <ClCompile Include="test_libtoken.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="test_data\libtoken_test.txt">
-      <Filter>Test Data</Filter>
-    </Text>
   </ItemGroup>
 </Project>
