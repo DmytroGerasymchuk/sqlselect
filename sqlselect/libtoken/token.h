@@ -16,7 +16,7 @@ namespace libtoken
 
 		vector<token_part> parts;
 
-		void clear();
+		void clear(char new_parts_separator = '\x00');
 
 		friend ostream& operator << (ostream& os, const token& t);
 	};

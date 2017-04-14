@@ -41,7 +41,7 @@ void dump_tokens()
 	token t;
 
 	while (ts >> t)
-		cout << t << " / ";
+		cout << t << " ";
 
 	cout << endl << endl;
 }
@@ -52,6 +52,10 @@ int main()
 	{
 		dump_raw_chars();
 		dump_tokens();
+	}
+	catch (const token_stream::syntax_error &ex)
+	{
+		cout << "SYNTAX ERROR: " << ex.what() << " at source line " << ex.cur_line_no << " pos " << ex.cur_line_pos << std::endl;
 	}
 	catch (const std::exception& ex)
 	{

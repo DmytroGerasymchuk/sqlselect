@@ -19,10 +19,14 @@ namespace libtoken
 			void ungetch(int num_chars = 1);
 			void skip_to_eol();
 
+			int get_cur_line_no() const { return line_no; }
+			int get_cur_line_pos() const { return buf_pos;  }
+
 		private:
 			istream& in_stream;
 			string current_line;
 			int buf_pos;
+			int line_no;
 
 			void check_cons() const;
 	};

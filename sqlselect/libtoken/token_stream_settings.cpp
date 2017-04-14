@@ -11,6 +11,7 @@ namespace libtoken
 				single_line_comment_prefix = "--";
 				token_part_qualifier = '"';
 				text_qualifier = '\'';
+				special_tokens = { "+", "-", "[", "]", "(", ")" };
 				break;
 			default:
 				break;

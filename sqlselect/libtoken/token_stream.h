@@ -19,6 +19,18 @@ namespace libtoken
 
 			operator bool() const { return state; };
 
+			class syntax_error : public exception
+			{
+				public:
+					syntax_error(const char *msg, const line_buffer& buf)
+						: exception(msg),
+							cur_line_no{ buf.get_cur_line_no() }, cur_line_pos{ buf.get_cur_line_pos() }
+					{}
+
+					int cur_line_no;
+					int cur_line_pos;
+			};
+
 		private:
 			token_stream_settings settings;
 			line_buffer line_buf;

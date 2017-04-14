@@ -2,9 +2,9 @@
 
 namespace libtoken
 {
-	void token::clear()
+	void token::clear(char new_parts_separator)
 	{
-		parts_separator = '\x00';
+		parts_separator = new_parts_separator;
 
 		parts.clear();
 	}

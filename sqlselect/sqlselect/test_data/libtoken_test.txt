@@ -1,11 +1,11 @@
 
 -- Prüfung leere MainDepartment und/oder OrgUnit
 -- select p."Project_Id", p."Estimation Id", p."Estimation Item Id", p."MainDepartment", p."OrgUnit"
-select distinct p."MainDepartment", p."OrgUnit", 26 + length(p."OrgUnit") as X-- zus.
+select distinct "p"."MainDepartment", p."OrgUnit", 26 + length(p."OrgUnit") as X-- zus.
 from
   PRD.V_FACTS_0 p
     inner join REQPRO.V_FACTS_0 d on
-      p."Project_Id"=d."Project_Id" and p."Estimation Id"=d."Estimation Id" and p."Estimation Item Id"=d."Estimation It--em Id"
+      p."Project_Id"=d."Project_Id" and p."Estimation Id"=d."Estimation Id" and p."Estimation Item Id"=d."Estimation Item Id"
     inner join PRD."EstimationItems" p_ei on p."Estimation Item Id"=p_ei."Id"
 where
   (

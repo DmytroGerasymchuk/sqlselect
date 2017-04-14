@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include <string>
 
 namespace libtoken
@@ -8,7 +9,6 @@ namespace libtoken
 
 	struct token_stream_settings
 	{
-
 		// if multi-part-tokens are expected (like Schema.Object etc.),
 		// then specify the parts separator;
 		// otherwise, leave set to 0x00!
@@ -28,6 +28,9 @@ namespace libtoken
 		// (for example, with '...'), then specify here;
 		// otherwise, leave set to 0x00!
 		char text_qualifier = '\x00';
+
+		// special tokens like "+", "-", "[", "]", "(", ")", ...
+		vector<string> special_tokens;
 
 		enum class Known { Sql };
 

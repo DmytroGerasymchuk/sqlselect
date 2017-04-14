@@ -12,6 +12,8 @@ namespace libtoken
 		string body;
 		char qualified_by = '\x00';
 
+		void clear();
+
 		friend ostream& operator << (ostream& os, const token_part& tp);
 	};
 }

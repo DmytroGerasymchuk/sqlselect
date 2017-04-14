@@ -5,7 +5,7 @@
 namespace libtoken
 {
 	line_buffer::line_buffer(istream& is)
-		: in_stream{ is }, current_line{ "" }, buf_pos{ -1 } { }
+		: in_stream{ is }, current_line{ "" }, buf_pos{ -1 }, line_no{ 0 } { }
 
 	char line_buffer::getch()
 	{
@@ -19,6 +19,8 @@ namespace libtoken
 
 				if (failed())
 					throw exception("error in the input stream");
+
+				line_no++;
 
 				if (current_line.length() > 0) // stop only if read non-empty line
 				{

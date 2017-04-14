@@ -13,32 +13,96 @@ namespace libtoken
 		if (!state)
 			throw exception("this token_stream is not readable any more");
 
-		t.clear();
+		t.clear(settings.multipart_token_separator);
 
 		token_part tmp;
+		bool tp_qual_started = false;
 
 		while (char c = line_buf.getch())
 		{
-			if (iswspace(c))
+			if ((iswspace(c) && (!tp_qual_started)) || (c == '\n'))
 			{
-				if (tmp.body.length() > 0)
+				if ((tmp.body.length() != 0) || tp_qual_started) // if already something has been read
+					break; // or newline inside of qualified token
+
+				continue;
+			}
+
+			if (comment_from_here(c))
+			{
+				line_buf.skip_to_eol();
+
+				if (tmp.body.length() != 0) // if already something has been read
 					break;
+
+				continue;
 			}
-			else
+
+			if ((c == settings.multipart_token_separator) && (!tp_qual_started))
 			{
-				if (comment_from_here(c))
+				if (tmp.body.length() == 0)
 				{
-					line_buf.skip_to_eol();
-					if (tmp.body.length() != 0) // if already something has been read
-						break;
+					state = false;
+					throw syntax_error("empty part of multipart token detected", line_buf);
 				}
-				else
-					tmp.body.append(1, c);
+
+				t.parts.push_back(tmp);
+				tmp.clear();
+
+				continue;
 			}
+
+			if (c == settings.token_part_qualifier)
+			{
+				if (!tp_qual_started) // start of the qualified token part
+				{
+					if (tmp.body.length() != 0)
+					{
+						state = false;
+						throw syntax_error("attempt to start token part qualification inside the token part", line_buf);
+					}
+
+					tp_qual_started = true;
+					tmp.qualified_by = settings.token_part_qualifier;
+
+					continue;
+				}
+
+				// end of the qualified token part
+				if (tmp.body.length() == 0)
+				{
+					state = false;
+					throw syntax_error("empty qualified token part detected", line_buf);
+				}
+
+				tp_qual_started = false;
+
+				// what follows the end of qualified token part?
+				c = line_buf.getch();
+				line_buf.ungetch(1);
+
+				if (c == settings.multipart_token_separator) // next part of the multipart token
+					continue;
+
+				break;
+			}
+
+			tmp.body.append(1, c);
+		}
+
+		if (tp_qual_started)
+		{
+			state = false;
+			throw syntax_error("non-closed token part qualification", line_buf);
 		}
 
 		if (tmp.body.length() == 0) // nothing found until end of stream
+		{
 			state = false;
+
+			if (t.parts.size() > 0)
+				throw syntax_error("improper multipart token detected", line_buf);
+		}
 		else
 			t.parts.push_back(tmp);
 
