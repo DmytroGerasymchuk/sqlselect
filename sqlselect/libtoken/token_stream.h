@@ -36,6 +36,9 @@ namespace libtoken
 			line_buffer line_buf;
 			bool state;
 
-			bool comment_from_here(char c);
+			bool comment_from_here(const char c);
+			int special_token_from_here_index(const char c);
+
+			bool string_from_here(const char c, const string& etalon);
 	};
 }
