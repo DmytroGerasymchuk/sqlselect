@@ -20,7 +20,10 @@ void dump_raw_chars()
 	cout << "[";
 
 	while (char c = line_buf.getch())
-		cout << c;
+		if (c == '\n')
+			cout << "\\n";
+		else
+			cout << c;
 
 	cout << "]" << endl << endl;
 }
@@ -38,9 +41,7 @@ void dump_tokens()
 	token t;
 
 	while (ts >> t)
-	{
-		cout << "[" << t.parts[0] << "] / ";
-	}
+		cout << t << " / ";
 
 	cout << endl << endl;
 }

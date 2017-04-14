@@ -22,7 +22,7 @@ namespace libtoken
 
 				if (current_line.length() > 0) // stop only if read non-empty line
 				{
-					current_line.append(1, ' '); // add a blank space at the end of line to mimic EOL
+					current_line.append(1, '\n'); // mimic EOL signal
 					buf_pos = 0;
 					break;
 				}

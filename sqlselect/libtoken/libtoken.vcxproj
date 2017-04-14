@@ -135,11 +135,14 @@
     <ClInclude Include="libtoken.h" />
     <ClInclude Include="line_buffer.h" />
     <ClInclude Include="token.h" />
+    <ClInclude Include="token_part.h" />
     <ClInclude Include="token_stream.h" />
     <ClInclude Include="token_stream_settings.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="line_buffer.cpp" />
+    <ClCompile Include="token.cpp" />
+    <ClCompile Include="token_part.cpp" />
     <ClCompile Include="token_stream.cpp" />
     <ClCompile Include="token_stream_settings.cpp" />
   </ItemGroup>

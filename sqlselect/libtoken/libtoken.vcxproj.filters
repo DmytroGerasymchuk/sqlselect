@@ -30,6 +30,9 @@
     <ClInclude Include="line_buffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="token_part.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="token_stream.cpp">
@@ -39,6 +42,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="token_stream_settings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="token.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="token_part.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -24,5 +24,6 @@ namespace libtoken
 			line_buffer line_buf;
 			bool state;
 
+			bool comment_from_here(char c);
 	};
 }

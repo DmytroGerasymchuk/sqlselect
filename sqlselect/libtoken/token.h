@@ -2,6 +2,9 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
+
+#include "token_part.h"
 
 namespace libtoken
 {
@@ -9,6 +12,12 @@ namespace libtoken
 
 	struct token
 	{
-		vector<string> parts;
+		char parts_separator = '\x00';
+
+		vector<token_part> parts;
+
+		void clear();
+
+		friend ostream& operator << (ostream& os, const token& t);
 	};
 }
