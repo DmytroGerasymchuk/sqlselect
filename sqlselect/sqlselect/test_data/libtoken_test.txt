@@ -11,7 +11,7 @@ where
   (
     (p."MainDepartment" is not null and d."MainDepartment" is null) or
     (p."OrgUnit" is not null and d."OrgUnit" is null)
-  ) or (p."MainDepartment"='hallo md!')
+  ) or (p."MainDepartment"='hallo md!' or p."MainDepartment"  in ('', '"'))
 order by 1, 2;
 -- order by 1, 3;
 

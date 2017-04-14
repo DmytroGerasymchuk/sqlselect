@@ -19,20 +19,21 @@ namespace libtoken
 
 		token_part tmp;
 		bool tp_qual_started = false;
+		bool txt_qual_started = false;
 
 		while (char c = line_buf.getch())
 		{
-			// if this is some kind of space AND NOT inside of qualified token
+			// if this is some kind of space AND NOT inside of qualified token / qualified text
 			// OR this is the end of the line
-			if ((iswspace(c) && (!tp_qual_started)) || (c == '\n'))
+			if ((iswspace(c) && (!tp_qual_started) && (!txt_qual_started)) || (c == '\n'))
 			{
-				if (SOMETHING_READ || tp_qual_started) // if already something has been read
-					break; // or newline inside of qualified token
+				if (SOMETHING_READ || tp_qual_started || txt_qual_started) // if already something has been read
+					break; // or newline inside of qualified token / qualified text
 
 				continue;
 			}
 
-			if (!tp_qual_started) // if not inside a qualified token
+			if ((!tp_qual_started) && (!txt_qual_started)) // if not inside a qualified token / qualified text
 			{
 				// is this a comment?
 				if (comment_from_here(c))
@@ -80,7 +81,31 @@ namespace libtoken
 				}
 			}
 
-			if (c == settings.token_part_qualifier)
+			if ((c == settings.text_qualifier) && (!tp_qual_started)) // text qualifier NOT inside qualified token
+			{
+				if (!txt_qual_started) // start of the qualified text
+				{
+					if (SOMETHING_READ)
+					{
+						line_buf.ungetch(); // put first character of the special token back to be read later
+						break; // and definitively end the current token
+					}
+
+					txt_qual_started = true;
+					tmp.qualified_by = settings.text_qualifier;
+
+					continue;
+				}
+
+				// end of the qualified text
+				txt_qual_started = false;
+
+				// we don't check for positive length here, because text may be empty (like '')!
+
+				break; // definitively end-of-token
+			}
+
+			if ((c == settings.token_part_qualifier) && (!txt_qual_started)) // token qualifier NOT inside qualified text
 			{
 				if (!tp_qual_started) // start of the qualified token part
 				{
@@ -124,7 +149,15 @@ namespace libtoken
 			throw syntax_error("non-closed token part qualification", line_buf);
 		}
 
-		if (tmp.body.length() == 0) // nothing found until end of stream
+		if (txt_qual_started)
+		{
+			state = false;
+			throw syntax_error("non-closed text qualification", line_buf);
+		}
+
+		if ((tmp.body.length() == 0) && (tmp.qualified_by != settings.text_qualifier))
+			// nothing found until end of stream
+			// and this is not a qualified text (because text may be empty, like '')
 		{
 			state = false;
 
