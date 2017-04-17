@@ -4,8 +4,9 @@ namespace libtoken
 {
 	void token_part::clear()
 	{
-		body.clear();
+		type = Type::General;
 		qualified_by = '\x00';
+		body.clear();
 	}
 
 	ostream& operator << (ostream&os, const token_part& tp)
@@ -13,7 +14,10 @@ namespace libtoken
 		if (tp.qualified_by)
 			os << tp.qualified_by;
 
-		os << tp.body;
+		if (tp.type == token_part::Type::EOL)
+			os << "\\n";
+		else
+			os << tp.body;
 
 		if (tp.qualified_by)
 			os << tp.qualified_by;

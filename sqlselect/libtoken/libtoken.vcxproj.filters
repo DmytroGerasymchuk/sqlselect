@@ -33,6 +33,12 @@
     <ClInclude Include="token_part.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="tabular_stream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tabular_stream_settings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="token_stream.cpp">
@@ -48,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="token_part.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tabular_stream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

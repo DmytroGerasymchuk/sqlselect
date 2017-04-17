@@ -9,8 +9,11 @@ namespace libtoken
 
 	struct token_part
 	{
-		string body;
+		enum class Type { General, Text, EOL };
+
+		Type type = Type::General;
 		char qualified_by = '\x00';
+		string body;
 
 		void clear();
 

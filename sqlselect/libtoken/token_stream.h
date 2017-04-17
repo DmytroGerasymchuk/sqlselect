@@ -13,7 +13,7 @@ namespace libtoken
 	class token_stream
 	{
 		public:
-			token_stream(token_stream_settings& ts_settings, istream& is);
+			token_stream(const token_stream_settings& ts_settings, istream& is);
 
 			token_stream& operator >> (token& t);
 
@@ -35,6 +35,26 @@ namespace libtoken
 			token_stream_settings settings;
 			line_buffer line_buf;
 			bool state;
+
+			void syntax_assert(const bool condition, const char *msg)
+			{
+				if (condition)
+				{
+					state = false;
+					throw syntax_error(msg, line_buf);
+				}
+			}
+
+			bool something_read(const token& t, const token_part& tmp) const { return (tmp.body.length() != 0) || (t.parts.size() != 0); };
+
+			enum class QualState { None, Token, Text };
+
+			bool qualification(const char c, const char etalon, const QualState& current_state, const QualState required_state) const
+			{
+				return
+					(c == etalon) &&
+					((current_state == QualState::None) || (current_state == required_state));
+			};
 
 			bool comment_from_here(const char c);
 			int special_token_from_here_index(const char c);

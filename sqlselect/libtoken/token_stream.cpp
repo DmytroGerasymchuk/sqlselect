@@ -1,10 +1,8 @@
 #include "token_stream.h"
 
-#define SOMETHING_READ (tmp.body.length() != 0) || (t.parts.size() != 0)
-
 namespace libtoken
 {
-	token_stream::token_stream(token_stream_settings& ts_settings, istream& is)
+	token_stream::token_stream(const token_stream_settings& ts_settings, istream& is)
 		: line_buf{ is }, state{ true }
 	{
 		settings = ts_settings;
@@ -18,29 +16,43 @@ namespace libtoken
 		t.clear(settings.multipart_token_separator);
 
 		token_part tmp;
-		bool tp_qual_started = false;
-		bool txt_qual_started = false;
+		QualState qual_state = QualState::None;
 
 		while (char c = line_buf.getch())
 		{
-			// if this is some kind of space AND NOT inside of qualified token / qualified text
-			// OR this is the end of the line
-			if ((iswspace(c) && (!tp_qual_started) && (!txt_qual_started)) || (c == '\n'))
+			// EOL signal
+			if (c == line_buf.eol_signal())
 			{
-				if (SOMETHING_READ || tp_qual_started || txt_qual_started) // if already something has been read
-					break; // or newline inside of qualified token / qualified text
+				if (something_read(t, tmp)) // if already something has been read
+					break;
+
+				if (settings.newline_as_token)
+				{
+					tmp.type = token_part::Type::EOL;
+					tmp.body.append(1, c);
+					break;
+				}
+				else
+					continue;
+			}
+
+			// if this is some kind of space AND NOT inside of qualification process
+			if (iswspace(c) && (qual_state == QualState::None))
+			{
+				if (something_read(t, tmp)) // if already something has been read
+					break;
 
 				continue;
 			}
 
-			if ((!tp_qual_started) && (!txt_qual_started)) // if not inside a qualified token / qualified text
+			if (qual_state == QualState::None) // if not inside of a qualified content
 			{
 				// is this a comment?
 				if (comment_from_here(c))
 				{
 					line_buf.skip_to_eol();
 
-					if (SOMETHING_READ) // if already something has been read
+					if (something_read(t, tmp)) // if already something has been read
 						break;
 
 					continue;
@@ -49,11 +61,7 @@ namespace libtoken
 				// is this a token part separator?
 				if (c == settings.multipart_token_separator)
 				{
-					if (tmp.body.length() == 0)
-					{
-						state = false;
-						throw syntax_error("empty part of multipart token detected", line_buf);
-					}
+					syntax_assert(tmp.body.length() == 0, "empty part of multipart token detected");
 
 					t.parts.push_back(tmp);
 					tmp.clear();
@@ -66,69 +74,66 @@ namespace libtoken
 				if (sti > -1) // yes!
 				{
 					// if special token follows something, which has already been read
-					if (SOMETHING_READ)
+					if (something_read(t, tmp))
 					{
 						line_buf.ungetch(); // put first character of the special token back to be read later
 						break; // and definitively end the current token
 					}
 					// otherwise, skip characters of the current special token
 					// and return the special token as a result
-					const string& st = settings.special_tokens[sti];
-					for (int i = 1; i < st.size(); i++) // from the "1" index, because 1st character is has been already read!
-						line_buf.getch();
-					tmp.body = st;
+					tmp.body = settings.special_tokens[sti];
+					line_buf.skip(tmp.body.size() - 1); // one character less, because 1st character has been already read!
 					break;
 				}
 			}
 
-			if ((c == settings.text_qualifier) && (!tp_qual_started)) // text qualifier NOT inside qualified token
+			// text qualifier NOT inside another qualification?
+			if (qualification(c, settings.text_qualifier, qual_state, QualState::Text))
 			{
-				if (!txt_qual_started) // start of the qualified text
+				if (qual_state == QualState::None) // start of the qualified text
 				{
-					if (SOMETHING_READ)
+					if (something_read(t, tmp))
 					{
-						line_buf.ungetch(); // put first character of the special token back to be read later
+						line_buf.ungetch(); // put first character back to be read later
 						break; // and definitively end the current token
 					}
 
-					txt_qual_started = true;
+					qual_state = QualState::Text;
+					tmp.type = token_part::Type::Text;
 					tmp.qualified_by = settings.text_qualifier;
 
 					continue;
 				}
 
 				// end of the qualified text
-				txt_qual_started = false;
+				qual_state = QualState::None;
 
 				// we don't check for positive length here, because text may be empty (like '')!
 
 				break; // definitively end-of-token
 			}
 
-			if ((c == settings.token_part_qualifier) && (!txt_qual_started)) // token qualifier NOT inside qualified text
+			// token qualifier NOT inside another qualification?
+			if (qualification(c, settings.token_part_qualifier, qual_state, QualState::Token))
 			{
-				if (!tp_qual_started) // start of the qualified token part
+				if (qual_state == QualState::None) // start of the qualified token part
 				{
-					if (tmp.body.length() != 0)
+					if (tmp.body.length() != 0) // if something is being read
 					{
-						state = false;
-						throw syntax_error("attempt to start token part qualification inside the token part", line_buf);
+						line_buf.ungetch(); // put first character back to be read later
+						break; // and definitively end the current token
 					}
 
-					tp_qual_started = true;
+					qual_state = QualState::Token;
 					tmp.qualified_by = settings.token_part_qualifier;
 
 					continue;
 				}
 
 				// end of the qualified token part
-				if (tmp.body.length() == 0)
-				{
-					state = false;
-					throw syntax_error("empty qualified token part detected", line_buf);
-				}
+				syntax_assert(tmp.body.length() == 0, "empty qualified token part detected");
 
-				tp_qual_started = false;
+				qual_state = QualState::None;
 
 				// what follows the end of qualified token part?
 				c = line_buf.getch();
@@ -143,26 +148,16 @@ namespace libtoken
 			tmp.body.append(1, c);
 		}
 
-		if (tp_qual_started)
-		{
-			state = false;
-			throw syntax_error("non-closed token part qualification", line_buf);
-		}
+		syntax_assert(qual_state == QualState::Token, "non-closed token part qualification");
+		syntax_assert(qual_state == QualState::Text, "non-closed text qualification");
 
-		if (txt_qual_started)
-		{
-			state = false;
-			throw syntax_error("non-closed text qualification", line_buf);
-		}
-
-		if ((tmp.body.length() == 0) && (tmp.qualified_by != settings.text_qualifier))
+		if ((tmp.body.length() == 0) && (tmp.type != token_part::Type::Text))
 			// nothing found until end of stream
 			// and this is not a qualified text (because text may be empty, like '')
 		{
-			state = false;
+			syntax_assert(t.parts.size() > 0, "improper multipart token detected");
 
-			if (t.parts.size() > 0)
-				throw syntax_error("improper multipart token detected", line_buf);
+			state = false; // say that this stream does not contain anything
 		}
 		else
 			t.parts.push_back(tmp);
@@ -177,7 +172,7 @@ namespace libtoken
 
 	int token_stream::special_token_from_here_index(const char c)
 	{
-		for (int i = 0; i < settings.special_tokens.size(); i++)
+		for (unsigned int i = 0; i < settings.special_tokens.size(); i++)
 			if (string_from_here(c, settings.special_tokens[i]))
 				return i;
 
