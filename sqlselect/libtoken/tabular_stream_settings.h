@@ -8,7 +8,7 @@ namespace libtoken
 
 	struct tabular_stream_settings
 	{
-		char text_qualifier = '"';
+		char qualifier = '"';
 		char field_separator = ';';
 		string single_line_comment_prefix = "#";
 	};

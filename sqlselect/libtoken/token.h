@@ -12,6 +12,14 @@ namespace libtoken
 
 	struct token
 	{
+		enum class CreationOpt { None, AddEmptyPart };
+
+		explicit token(CreationOpt creation_opt = CreationOpt::None)
+		{
+			if (creation_opt == CreationOpt::AddEmptyPart)
+				parts.push_back(token_part());
+		};
+
 		enum class Type { Undefined, Atomic, Multipart, Text, EOL };
 
 		char parts_separator = '\x00';

@@ -46,16 +46,38 @@ void dump_tokens()
 	cout << endl << endl;
 }
 
+void dump_tabular_onefile()
+{
+	cout << "tabular_stream test: read and dump CSV file with inside-header" << endl << endl;
+
+	ifstream ifs{ "../sqlselect/test_data/tabstream_onefile.txt" };
+	if (!ifs)
+		throw std::exception("ifs.open failed!");
+
+	tabular_stream_settings tss;
+	tabular_stream ts{ tss, ifs, ifs };
+
+	cout << ts.header << endl;
+
+	vector<token> line;
+
+	while (ts >> line)
+		cout << line << endl;
+
+	cout << endl;
+}
+
 int main()
 {
 	try
 	{
 		dump_raw_chars();
 		dump_tokens();
+		dump_tabular_onefile();
 	}
-	catch (const token_stream::syntax_error &ex)
+	catch (const libtoken_exception& ex)
 	{
-		cout << "SYNTAX ERROR: " << ex.what() << " at source line " << ex.cur_line_no << " pos " << ex.cur_line_pos << std::endl;
+		cout << "LIBTOKEN EXCEPTION: " << typeid(ex).name() << ": " << ex.what() << " at source line " << ex.cur_line_no << " pos " << ex.cur_line_pos << std::endl;
 	}
 	catch (const std::exception& ex)
 	{

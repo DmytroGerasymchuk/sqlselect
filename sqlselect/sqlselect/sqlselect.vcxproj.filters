@@ -16,6 +16,9 @@
     <Filter Include="Test Data">
       <UniqueIdentifier>{879c1246-65a4-4eda-bcf6-d15691c6feea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Test Data\Header Files">
+      <UniqueIdentifier>{9bcfbe6d-9d0b-450d-abd7-dda02824eb64}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sqlselect.cpp">
@@ -24,6 +27,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="test_data\libtoken_test.txt">
+      <Filter>Test Data</Filter>
+    </Text>
+    <Text Include="test_data\tabstream_onefile.txt">
       <Filter>Test Data</Filter>
     </Text>
   </ItemGroup>

@@ -1,4 +1,5 @@
 #include "line_buffer.h"
+#include "libtoken_exception.h"
 
 #include <string>
 
@@ -18,7 +19,7 @@ namespace libtoken
 				getline(in_stream, current_line);
 
 				if (failed())
-					throw exception("error in the input stream");
+					throw libtoken_exception("error in the input stream", *this);
 
 				line_no++;
 
@@ -46,10 +47,10 @@ namespace libtoken
 		check_cons();
 
 		if (num_chars < 1)
-			throw exception("cannot unget less than 1 character");
+			throw libtoken_exception("cannot unget less than 1 character", *this);
 
 		if ((buf_pos - num_chars) < 0)
-			throw exception("too much characters to unget");
+			throw libtoken_exception("too much characters to unget", *this);
 
 		buf_pos -= num_chars;
 	}
@@ -59,10 +60,10 @@ namespace libtoken
 		check_cons();
 
 		if (num_chars < 0)
-			throw exception("cannot skip less than 0 characters");
+			throw libtoken_exception("cannot skip less than 0 characters", *this);
 
 		if ((buf_pos + num_chars) >= current_line.size())
-			throw exception("too much characters to skip");
+			throw libtoken_exception("too much characters to skip", *this);
 	}
 
 	void line_buffer::skip_to_eol()
@@ -75,6 +76,6 @@ namespace libtoken
 	void line_buffer::check_cons() const
 	{
 		if (buf_pos == -1)
-			throw exception("buffer is empty or in invalid state, cannot proceed with required operation");
+			throw libtoken_exception("buffer is empty or in invalid state, cannot proceed with required operation", *this);
 	}
 }

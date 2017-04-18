@@ -1,0 +1,12 @@
+# tabular stream test file
+# csv with comments and header in the 1st line
+
+"customer id";"customer name";descr # this is a header!!
+
+10;ibm;
+;; #completely empty line
+20;hp;"Hewlett Packard"
+;x;y
+25;;empty25
+30; "Unity Media";
+

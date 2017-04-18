@@ -133,6 +133,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="libtoken.h" />
+    <ClInclude Include="libtoken_exception.h" />
     <ClInclude Include="line_buffer.h" />
     <ClInclude Include="tabular_stream.h" />
     <ClInclude Include="tabular_stream_settings.h" />
