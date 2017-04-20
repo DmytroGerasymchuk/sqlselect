@@ -12,7 +12,7 @@ namespace libtoken
 
 		token_stream_settings tss;
 
-		tss.token_part_qualifier = settings.qualifier;
+		tss.text_qualifier = settings.qualifier;
 		if (settings.field_separator) // if field separator not just space
 			tss.special_tokens.push_back(field_separator_string);
 		tss.single_line_comment_prefix = settings.single_line_comment_prefix;
@@ -20,7 +20,7 @@ namespace libtoken
 		tss.newline_as_token = true;
 
 		token_stream hs = token_stream(tss, header_is);
-		ds = new token_stream(tss, data_is);
+		ds = unique_ptr<token_stream>(new token_stream(tss, data_is));
 
 		if (!read_line(hs, header, false))
 			throw tabular_error("cannot read header", hs.get_buffer());

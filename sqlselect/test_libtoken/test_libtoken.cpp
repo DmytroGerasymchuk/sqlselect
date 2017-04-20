@@ -67,6 +67,29 @@ void dump_tabular_onefile()
 	cout << endl;
 }
 
+void dump_tabular_sepfiles()
+{
+	cout << "tabular_stream test: read and dump space-separated file with separate header" << endl << endl;
+
+	ifstream ifs_h{ "../sqlselect/test_data/tabstream_sep_header.txt" };
+	if (!ifs_h) throw std::exception("ifs_h.open failed!");
+	ifstream ifs_d{ "../sqlselect/test_data/tabstream_sep_data.txt" };
+	if (!ifs_d) throw std::exception("ifs_d.open failed!");
+
+	tabular_stream_settings tss;
+	tss.field_separator = '\x00';
+	tabular_stream ts{ tss, ifs_h, ifs_d };
+
+	cout << ts.header << endl;
+
+	vector<token> line;
+
+	while (ts >> line)
+		cout << line << endl;
+
+	cout << endl;
+}
+
 int main()
 {
 	try
@@ -74,6 +97,9 @@ int main()
 		dump_raw_chars();
 		dump_tokens();
 		dump_tabular_onefile();
+		dump_tabular_sepfiles();
+
+		cout << "End-of-program." << endl;
 	}
 	catch (const libtoken_exception& ex)
 	{

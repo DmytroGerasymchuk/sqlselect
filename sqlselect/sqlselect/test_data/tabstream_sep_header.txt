@@ -1,0 +1,4 @@
+# tabular stream test file
+# empty space-separated with comments and header in the separate file
+
+"customer id" "customer name" descr # this is a header!!

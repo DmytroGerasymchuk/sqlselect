@@ -32,5 +32,11 @@
     <Text Include="test_data\tabstream_onefile.txt">
       <Filter>Test Data</Filter>
     </Text>
+    <Text Include="test_data\tabstream_sep_data.txt">
+      <Filter>Test Data</Filter>
+    </Text>
+    <Text Include="test_data\tabstream_sep_header.txt">
+      <Filter>Test Data</Filter>
+    </Text>
   </ItemGroup>
 </Project>

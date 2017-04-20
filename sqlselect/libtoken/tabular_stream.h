@@ -5,6 +5,7 @@
 #include "libtoken_exception.h"
 
 #include <vector>
+#include <memory>
 
 namespace libtoken
 {
@@ -14,7 +15,6 @@ namespace libtoken
 	{
 		public:
 			tabular_stream(const tabular_stream_settings& ts_settings, istream& header_is, istream& data_is);
-			~tabular_stream() { if (ds != nullptr) delete ds; }
 
 			vector<token> header;
 
@@ -35,7 +35,7 @@ namespace libtoken
 			string field_separator_string;
 			bool state;
 
-			token_stream *ds = nullptr; // data stream
+			unique_ptr<token_stream> ds; // data stream
 
 			bool read_line(token_stream& ts, vector<token>& line, bool allow_separator_at_end = true);
 

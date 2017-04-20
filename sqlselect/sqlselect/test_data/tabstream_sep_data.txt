@@ -1,0 +1,10 @@
+# tabular stream test file
+# empty space-separated with comments and header in the separate file
+
+10 ibm ""
+"" "" "" #completely empty line
+20 hp "Hewlett Packard"
+"" x y
+25 "" empty25
+30 "Unity Media" ""
+

@@ -153,6 +153,8 @@
   <ItemGroup>
     <Text Include="test_data\libtoken_test.txt" />
     <Text Include="test_data\tabstream_onefile.txt" />
+    <Text Include="test_data\tabstream_sep_data.txt" />
+    <Text Include="test_data\tabstream_sep_header.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
