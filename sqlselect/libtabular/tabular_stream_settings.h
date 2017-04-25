@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace libtoken
+namespace libtabular
 {
 	using namespace std;
 

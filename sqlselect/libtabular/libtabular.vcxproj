@@ -18,10 +18,19 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="libtabular.h" />
+    <ClInclude Include="libtabular_exception.h" />
+    <ClInclude Include="tabular_stream.h" />
+    <ClInclude Include="tabular_stream_settings.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="tabular_stream.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{4B0CD51B-A161-4376-A3AB-7CE36B5A7BED}</ProjectGuid>
+    <ProjectGuid>{B1E1933E-30EA-4BB2-8FA3-181E0EE2EA0E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>libtoken</RootNamespace>
+    <RootNamespace>libtabular</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -131,22 +140,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="libtoken.h" />
-    <ClInclude Include="libtoken_exception.h" />
-    <ClInclude Include="line_buffer.h" />
-    <ClInclude Include="token.h" />
-    <ClInclude Include="token_part.h" />
-    <ClInclude Include="token_stream.h" />
-    <ClInclude Include="token_stream_settings.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="line_buffer.cpp" />
-    <ClCompile Include="token.cpp" />
-    <ClCompile Include="token_part.cpp" />
-    <ClCompile Include="token_stream.cpp" />
-    <ClCompile Include="token_stream_settings.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

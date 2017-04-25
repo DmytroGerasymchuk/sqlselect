@@ -15,42 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="token_stream.h">
+    <ClInclude Include="tabular_stream.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libtoken.h">
+    <ClInclude Include="tabular_stream_settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="token.h">
+    <ClInclude Include="libtabular.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="token_stream_settings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="line_buffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="token_part.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="libtoken_exception.h">
+    <ClInclude Include="libtabular_exception.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="token_stream.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="line_buffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="token_stream_settings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="token.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="token_part.cpp">
+    <ClCompile Include="tabular_stream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

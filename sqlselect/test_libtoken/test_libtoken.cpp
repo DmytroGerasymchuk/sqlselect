@@ -3,12 +3,14 @@
 #include <fstream>
 
 #include "../libtoken/libtoken.h"
+#include "../libtabular/libtabular.h"
 
 using namespace std;
-using namespace libtoken;
 
 void dump_raw_chars()
 {
+	using namespace libtoken;
+
 	cout << "line_buffer test: read whole file and dump raw characters" << endl << endl;
 
 	ifstream ifs{ "../sqlselect/test_data/libtoken_test.txt" };
@@ -30,6 +32,8 @@ void dump_raw_chars()
 
 void dump_tokens()
 {
+	using namespace libtoken;
+
 	cout << "token_stream test: read whole file and dump tokens" << endl << endl;
 
 	ifstream ifs{ "../sqlselect/test_data/libtoken_test.txt" };
@@ -48,6 +52,8 @@ void dump_tokens()
 
 void dump_tabular_onefile()
 {
+	using namespace libtabular;
+
 	cout << "tabular_stream test: read and dump CSV file with inside-header" << endl << endl;
 
 	ifstream ifs{ "../sqlselect/test_data/tabstream_onefile.txt" };
@@ -69,6 +75,8 @@ void dump_tabular_onefile()
 
 void dump_tabular_sepfiles()
 {
+	using namespace libtabular;
+
 	cout << "tabular_stream test: read and dump space-separated file with separate header" << endl << endl;
 
 	ifstream ifs_h{ "../sqlselect/test_data/tabstream_sep_header.txt" };
@@ -101,9 +109,17 @@ int main()
 
 		cout << "End-of-program." << endl;
 	}
-	catch (const libtoken_exception& ex)
+	catch (const libtoken::libtoken_exception& ex)
 	{
 		cout << "LIBTOKEN EXCEPTION: " << typeid(ex).name() << ": " << ex.what() << " at source line " << ex.cur_line_no << " pos " << ex.cur_line_pos << std::endl;
+	}
+	catch (const libtabular::tabular_stream::tabularization_error& ex)
+	{
+		cout << "TABULARIZATION ERROR: " << ex.what() << " at source line " << ex.cur_line_no << " pos " << ex.cur_line_pos << std::endl;
+	}
+	catch (const libtabular::libtabular_exception& ex)
+	{
+		cout << "LIBTABULAR EXCEPTION: " << typeid(ex).name() << ": " << ex.what() << std::endl;
 	}
 	catch (const std::exception& ex)
 	{

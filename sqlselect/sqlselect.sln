@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libtoken", "libtoken\libtok
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_libtoken", "test_libtoken\test_libtoken.vcxproj", "{03E85969-A0FB-450C-A052-3C2E895625AB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libtabular", "libtabular\libtabular.vcxproj", "{B1E1933E-30EA-4BB2-8FA3-181E0EE2EA0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -49,6 +51,16 @@ Global
 		{03E85969-A0FB-450C-A052-3C2E895625AB}.Release|x64.Build.0 = Release|x64
 		{03E85969-A0FB-450C-A052-3C2E895625AB}.Release|x86.ActiveCfg = Release|Win32
 		{03E85969-A0FB-450C-A052-3C2E895625AB}.Release|x86.Build.0 = Release|Win32
+		{B1E1933E-30EA-4BB2-8FA3-181E0EE2EA0E}.Debug|ARM.ActiveCfg = Debug|Win32
+		{B1E1933E-30EA-4BB2-8FA3-181E0EE2EA0E}.Debug|x64.ActiveCfg = Debug|x64
+		{B1E1933E-30EA-4BB2-8FA3-181E0EE2EA0E}.Debug|x64.Build.0 = Debug|x64
+		{B1E1933E-30EA-4BB2-8FA3-181E0EE2EA0E}.Debug|x86.ActiveCfg = Debug|Win32
+		{B1E1933E-30EA-4BB2-8FA3-181E0EE2EA0E}.Debug|x86.Build.0 = Debug|Win32
+		{B1E1933E-30EA-4BB2-8FA3-181E0EE2EA0E}.Release|ARM.ActiveCfg = Release|Win32
+		{B1E1933E-30EA-4BB2-8FA3-181E0EE2EA0E}.Release|x64.ActiveCfg = Release|x64
+		{B1E1933E-30EA-4BB2-8FA3-181E0EE2EA0E}.Release|x64.Build.0 = Release|x64
+		{B1E1933E-30EA-4BB2-8FA3-181E0EE2EA0E}.Release|x86.ActiveCfg = Release|Win32
+		{B1E1933E-30EA-4BB2-8FA3-181E0EE2EA0E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

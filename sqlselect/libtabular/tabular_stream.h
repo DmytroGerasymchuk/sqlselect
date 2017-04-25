@@ -1,15 +1,16 @@
 #pragma once
 
-#include "token_stream.h"
+#include "../libtoken/libtoken.h"
 #include "tabular_stream_settings.h"
-#include "libtoken_exception.h"
+#include "libtabular_exception.h"
 
 #include <vector>
 #include <memory>
 
-namespace libtoken
+namespace libtabular
 {
 	using namespace std;
+	using namespace libtoken;
 
 	class tabular_stream
 	{
@@ -24,10 +25,16 @@ namespace libtoken
 
 			friend ostream& operator << (ostream& os, const vector<token>& line);
 
-			class tabular_error : public libtoken_exception
+			class tabularization_error : public libtabular_exception
 			{
 				public:
-					tabular_error(const char *msg, const line_buffer& buf) : libtoken_exception(msg, buf) {}
+					tabularization_error(const char *msg, const line_buffer& buf)
+						: libtabular_exception(msg),
+						cur_line_no{ buf.get_cur_line_no() }, cur_line_pos{ buf.get_cur_line_pos() }
+					{}
+
+					int cur_line_no;
+					int cur_line_pos;
 			};
 
 		private:
@@ -44,7 +51,7 @@ namespace libtoken
 				if (condition)
 				{
 					state = false;
-					throw tabular_error(msg, line_buf);
+					throw tabularization_error(msg, line_buf);
 				}
 			}
 	};

@@ -1,6 +1,6 @@
 #include "tabular_stream.h"
 
-namespace libtoken
+namespace libtabular
 {
 	tabular_stream::tabular_stream(const tabular_stream_settings& ts_settings, istream& header_is, istream& data_is)
 		: state{ true }
@@ -23,13 +23,13 @@ namespace libtoken
 		ds = unique_ptr<token_stream>(new token_stream(tss, data_is));
 
 		if (!read_line(hs, header, false))
-			throw tabular_error("cannot read header", hs.get_buffer());
+			throw tabularization_error("cannot read header", hs.get_buffer());
 	}
 
 	tabular_stream& tabular_stream::operator >> (vector<token>& line)
 	{
 		if (!state)
-			throw tabular_error("this tabular_stream is not readable any more", ds->get_buffer());
+			throw tabularization_error("this tabular_stream is not readable any more", ds->get_buffer());
 
 		if (!read_line(*ds, line))
 			state = false;

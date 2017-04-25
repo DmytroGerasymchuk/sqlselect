@@ -150,6 +150,9 @@
     <ClCompile Include="test_libtoken.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\libtabular\libtabular.vcxproj">
+      <Project>{b1e1933e-30ea-4bb2-8fa3-181e0ee2ea0e}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\libtoken\libtoken.vcxproj">
       <Project>{4b0cd51b-a161-4376-a3ab-7ce36b5a7bed}</Project>
     </ProjectReference>
