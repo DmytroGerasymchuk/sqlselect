@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="sqlselect.cpp">
+    <ClCompile Include="test_libtabular.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

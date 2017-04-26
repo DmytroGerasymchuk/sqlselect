@@ -6,3 +6,4 @@ sqlselect/libtoken/Debug/
 sqlselect/test_libtoken/Debug/
 sqlselect/libtoken/libtoken.vcxproj.user
 sqlselect/libtabular/Debug/
+sqlselect/test_libtabular/Debug/
