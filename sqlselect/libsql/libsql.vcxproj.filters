@@ -15,45 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="token_stream.h">
+    <ClInclude Include="libsql.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libtoken.h">
+    <ClInclude Include="sql_token_stream_settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="token.h">
+    <ClInclude Include="stmt_part_stream.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="token_stream_settings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="line_buffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="token_part.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="libtoken_exception.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="operators.h">
+    <ClInclude Include="libsql_exception.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="token_stream.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="line_buffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="token.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="token_part.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operators.cpp">
+    <ClCompile Include="stmt_part_stream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

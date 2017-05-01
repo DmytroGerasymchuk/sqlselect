@@ -7,3 +7,6 @@ sqlselect/test_libtoken/Debug/
 sqlselect/libtoken/libtoken.vcxproj.user
 sqlselect/libtabular/Debug/
 sqlselect/test_libtabular/Debug/
+/sqlselect/sqlselect.VC.VC.opendb
+sqlselect/libsql/Debug/
+sqlselect/test_libsql/Debug/

@@ -27,7 +27,5 @@ namespace libtoken
 
 		void clear(char new_parts_separator = '\x00');
 		Type get_type() const;
-
-		friend ostream& operator << (ostream& os, const token& t);
 	};
 }

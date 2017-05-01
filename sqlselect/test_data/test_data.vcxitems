@@ -14,6 +14,7 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="$(MSBuildThisFileDirectory)libsql_stmt_part_test.txt" />
     <Text Include="$(MSBuildThisFileDirectory)libtoken_test.txt" />
     <Text Include="$(MSBuildThisFileDirectory)tabstream_onefile.txt" />
     <Text Include="$(MSBuildThisFileDirectory)tabstream_sep_data.txt" />

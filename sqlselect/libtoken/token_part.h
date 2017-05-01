@@ -16,7 +16,5 @@ namespace libtoken
 		string body;
 
 		void clear();
-
-		friend ostream& operator << (ostream& os, const token_part& tp);
 	};
 }

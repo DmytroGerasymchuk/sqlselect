@@ -1,0 +1,7 @@
+
+-- Test-File with multiple SQL statements
+
+select * from dual;
+
+select c.ID, c.NAME from xxx.CUSTOMER;
+

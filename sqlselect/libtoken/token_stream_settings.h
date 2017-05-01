@@ -39,9 +39,7 @@ namespace libtoken
 		// special tokens like "+", "-", "[", "]", "(", ")", ...
 		vector<string> special_tokens;
 
-		enum class Known { Sql };
-
 		token_stream_settings() {};
-		token_stream_settings(Known ks);
+		virtual ~token_stream_settings() {};
 	};
 }

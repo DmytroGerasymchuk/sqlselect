@@ -39,23 +39,6 @@ namespace libtabular
 		return *this;
 	}
 
-	ostream& operator << (ostream& os, const vector<token>& line)
-	{
-		bool first_token = true;
-
-		for (const auto& t : line)
-		{
-			if (first_token)
-				first_token = false;
-			else
-				os << ' ';
-
-			os << t;
-		}
-
-		return os;
-	}
-
 	bool tabular_stream::read_line(token_stream& ts, vector<token>& line, bool allow_separator_at_end)
 	{
 		line.clear();

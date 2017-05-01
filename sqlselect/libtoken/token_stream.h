@@ -15,6 +15,7 @@ namespace libtoken
 	{
 		public:
 			token_stream(const token_stream_settings& ts_settings, istream& is);
+			virtual ~token_stream() {}
 
 			token_stream& operator << (token& t);
 			token_stream& operator >> (token& t);

@@ -23,8 +23,6 @@ namespace libtabular
 
 			operator bool() const { return state; };
 
-			friend ostream& operator << (ostream& os, const vector<token>& line);
-
 			class tabularization_error : public libtabular_exception
 			{
 				public:

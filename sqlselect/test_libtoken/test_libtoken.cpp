@@ -1,6 +1,7 @@
 #include <fstream>
 
 #include "../libtoken/libtoken.h"
+#include "../libsql/libsql.h"
 
 using namespace std;
 
@@ -31,13 +32,13 @@ void dump_tokens()
 {
 	using namespace libtoken;
 
-	cout << "token_stream test: read whole file and dump tokens" << endl << endl;
+	cout << "token_stream test: read whole file and dump tokens using SQL-style stream settings" << endl << endl;
 
 	ifstream ifs{ "../test_data/libtoken_test.txt" };
 	if (!ifs)
 		throw std::exception("ifs.open failed!");
 
-	token_stream ts{ token_stream_settings(token_stream_settings::Known::Sql), ifs };
+	token_stream ts{ libsql::sql_token_stream_settings(), ifs };
 
 	token t;
 
